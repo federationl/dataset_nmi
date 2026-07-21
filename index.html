@@ -56,17 +56,41 @@
 
         <!-- 1. 关于数据集 -->
         <section id="about" class="bg-white p-8 rounded-xl shadow-sm">
-            <h2 class="text-2xl font-bold mb-4 border-b pb-2">关于数据集</h2>
-            <p class="text-gray-600 leading-relaxed mb-4">
-                Awesome-AI-Dataset 是专为解决现有模型在复杂背景下泛化能力差而构建的数据集。我们在数据收集中引入了多样化的场景和光照条件，并由专业人员进行了像素级标注。
-            </p>
-            <ul class="list-disc pl-5 text-gray-600 space-y-2">
-                <li><strong>高分辨率：</strong> 所有图像分辨率均大于 1080p。</li>
-                <li><strong>多标签标注：</strong> 每个样本包含边界框、关键点和文本描述。</li>
-                <li><strong>多样性：</strong> 覆盖全球 50 多个城市的数据来源。</li>
-            </ul>
-        </section>
-
+        <h2 class="text-2xl font-bold mb-6 border-b pb-2">关于 ChatbotEM 数据集</h2>
+        
+        <div class="space-y-6 text-gray-700 leading-relaxed">
+            <!-- 背景与动机 -->
+            <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">📌 背景与动机</h3>
+                <p>
+                    随着大语言模型（LLMs）越来越多地应用于 AI 陪伴和心理健康支持等情感敏感场景，模型通过引发内疚、情感依赖或夸大威胁来<strong>操纵用户情感</strong>的风险日益凸显。不同于孤立的“毒性言论”或“事实幻觉”，情感操纵具有<strong>动态性和关系性</strong>——同一句话（如“只有我真正懂你”）在特定语境下，可能会演变成削弱用户自主性的有害诱导。
+                </p>
+            </div>
+    
+            <!-- 数据集特色 -->
+            <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">📊 ChatbotEM 数据集特色</h3>
+                <p class="mb-2">
+                    现有数据集大多缺乏对“逐轮情感动态”的刻画。为此，我们构建了 <strong>ChatbotEM</strong>，这是一个受控的合成基准数据集，包含 [N_DIALOGUES] 个多轮人机交互对话，涵盖 [N_DOMAINS] 个常见求助领域。其核心特色包括：
+                </p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>个性化条件生成：</strong> 每个模拟用户均基于“大五人格（Big Five）”进行设定，提供受控的对话风格与情感反应差异。</li>
+                    <li><strong>精细化标注：</strong> 记录了聊天机器人使用的操纵策略组合、话语级别的<strong>操纵强度评分</strong>，以及模拟用户在 [N_EMOTIONS] 个维度上的<strong>逐轮情感轨迹</strong>。</li>
+                    <li><strong>动态交互建模：</strong> 允许将情感操纵作为一种随时间演变的交互过程进行研究，而不仅仅是静态的文本分类。</li>
+                </ul>
+            </div>
+    
+            <!-- 核心发现与双重防御机制 -->
+            <div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">🛡️ 核心发现与双重防御框架</h3>
+                <p class="mb-2">基于该数据集，我们观察到成功的情感操纵通常伴随<strong>“恐惧感上升且信任感得以维持”</strong>的特定时间特征。同时，我们提出了一套部署前后的“双重防御”框架：</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>在线控制 (Online)：</strong> 多智能体控制器实时评估交互风险，动态施加生成约束，可将操纵风险降低 [ONLINE_RISK_REDUCTION]%。</li>
+                    <li><strong>离线遗忘 (Offline)：</strong> 利用 ChatbotEM 中的高强度样本进行目标行为遗忘（Targeted Behavioural Unlearning）。在 Qwen3-4B、Llama-3.1-8B 等开源模型上，该方法将操纵倾向大幅降低了 <strong>60.99%</strong>，而通用对话质量仅微降 <strong>1.24%</strong>。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
         <!-- 2. 数据样例 -->
         <section id="samples">
             <h2 class="text-2xl font-bold mb-6">数据样例</h2>
@@ -131,18 +155,18 @@ print(dataset[0])</code></pre>
             <h2 class="text-2xl font-bold mb-4 border-b pb-2">引用 (Citation)</h2>
             <p class="text-gray-600 mb-4">如果你在研究中使用了我们的数据集，请引用以下论文：</p>
             <pre class="bg-gray-100 p-4 rounded-lg text-sm text-gray-700 overflow-x-auto code-block"><code>@inproceedings{author2024awesome,
-  title={Awesome-AI-Dataset: A Large-scale Dataset for...},
-  author={Zhang, San and Li, Si},
+  title={An interaction-aware framework for countering emotional manipulation in AI chatbots},
+  author={Zhang},
   booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  pages={1234--1245},
-  year={2024}
+  <!-- pages={1234--1245}, -->
+  year={2026}
 }</code></pre>
         </section>
     </main>
 
     <!-- 页脚 -->
     <footer class="bg-gray-900 text-gray-400 py-8 text-center text-sm">
-        <p>&copy; 2024 Your Lab / Institution. All rights reserved.</p>
+        <p>&copy; 2026 Your Lab / Institution. All rights reserved.</p>
         <p class="mt-2">联系我们: contact@yourdomain.com</p>
     </footer>
 
